@@ -22,9 +22,10 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalln("Error loading env")
+	if os.Getenv("GO_ENV") != "production" {
+		if err := godotenv.Load(); err != nil {
+			log.Println("No .env file found, continuing")
+		}
 	}
 
 	cfg := config.Primary{
